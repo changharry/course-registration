@@ -9,8 +9,8 @@ import java.util.List;
 public class Course {
 
     @Id
-    @Column(name = "courseID")
-    private int courseID;
+    @Column(name = "course_id")
+    private String course_id;
 
     @Column(name = "title")
     private String title;
@@ -25,26 +25,26 @@ public class Course {
     private int capacity;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "courseID"), inverseJoinColumns = @JoinColumn(name = "studentID"))
+    @JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
     private List<Student> students;
 
     public Course() {
     }
 
-    public Course(int courseID, String title, String description, String instructor, int capacity) {
-        this.courseID = courseID;
+    public Course(String courseID, String title, String description, String instructor, int capacity) {
+        this.course_id = courseID;
         this.title = title;
         this.description = description;
         this.instructor = instructor;
         this.capacity = capacity;
     }
 
-    public int getCourseID() {
-        return courseID;
+    public String getCourseID() {
+        return course_id;
     }
 
-    public void setCourseID(int courseID) {
-        this.courseID = courseID;
+    public void setCourseID(String courseID) {
+        this.course_id = courseID;
     }
 
     public String getTitle() {
@@ -97,7 +97,7 @@ public class Course {
     @Override
     public String toString() {
         return "Course{" +
-                "courseID=" + courseID +
+                "courseID=" + course_id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", instructor='" + instructor + '\'' +

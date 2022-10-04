@@ -1,5 +1,7 @@
 package com.changzh.courseregistration.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,60 +12,61 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "student_id")
+    private int student_id;
 
-    @Column(name = "firstName")
-    private String firstName;
+    @Column(name = "first_name")
+    private String first_name;
 
-    @Column(name = "lastName")
-    private String lastName;
+    @Column(name = "last_name")
+    private String last_name;
 
     @Column(name = "email")
     private String email;
 
-    @Column(name = "yearLevel")
-    private int yearLevel;
+    @Column(name = "year_level")
+    private int year_level;
 
     @Column(name = "major")
     private String major;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "studentID"), inverseJoinColumns = @JoinColumn(name = "courseID"))
+    @JsonIgnore
+    @JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "course_id"))
     private List<Course> courses;
 
     public Student() {}
 
     public Student(String firstName, String lastName, String email, int yearLevel, String major) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.first_name = firstName;
+        this.last_name = lastName;
         this.email = email;
-        this.yearLevel = yearLevel;
+        this.year_level = yearLevel;
         this.major = major;
     }
 
     public int getId() {
-        return id;
+        return student_id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.student_id = id;
     }
 
     public String getFirstName() {
-        return firstName;
+        return first_name;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.first_name = firstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return last_name;
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.last_name = lastName;
     }
 
     public String getEmail() {
@@ -75,11 +78,11 @@ public class Student {
     }
 
     public int getYearLevel() {
-        return yearLevel;
+        return year_level;
     }
 
     public void setYearLevel(int yearLevel) {
-        this.yearLevel = yearLevel;
+        this.year_level = yearLevel;
     }
 
     public String getMajor() {
@@ -108,11 +111,11 @@ public class Student {
     @Override
     public String toString() {
         return "Student{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                "id=" + student_id +
+                ", firstName='" + first_name + '\'' +
+                ", lastName='" + last_name + '\'' +
                 ", email='" + email + '\'' +
-                ", yearLevel=" + yearLevel +
+                ", yearLevel=" + year_level +
                 ", major='" + major + '\'' +
                 '}';
     }
