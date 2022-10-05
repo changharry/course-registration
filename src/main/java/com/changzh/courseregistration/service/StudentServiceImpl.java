@@ -1,6 +1,7 @@
 package com.changzh.courseregistration.service;
 
 import com.changzh.courseregistration.dao.StudentDAO;
+import com.changzh.courseregistration.entity.Course;
 import com.changzh.courseregistration.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,4 +48,11 @@ public class StudentServiceImpl implements StudentService{
     public void addCourse(int studentID, String courseID) {
         studentDAO.addCourse(studentID, courseID);
     }
+
+    @Override
+    public List<Course> enrolledCourse(int studentID) {
+        return studentDAO.enrolledCourse(studentID);
+    }
+
+
 }

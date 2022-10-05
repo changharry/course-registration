@@ -56,4 +56,12 @@ public class StudentDAOImpl implements StudentDAO{
         student.addCourse(course);
     }
 
+    @Override
+    public List<Course> enrolledCourse(int studentID) {
+        Session session = entityManager.unwrap(Session.class);
+        Student student = session.get(Student.class, studentID);
+        return student.getCourses();
+    }
+
+
 }

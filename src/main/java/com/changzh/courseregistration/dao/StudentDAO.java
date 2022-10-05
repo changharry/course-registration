@@ -16,4 +16,6 @@ public interface StudentDAO {
     public void delete(int studentID);
 
     public void addCourse(int studentID, String courseID);
+
+    public List<Course> enrolledCourse(int studentID);
 }

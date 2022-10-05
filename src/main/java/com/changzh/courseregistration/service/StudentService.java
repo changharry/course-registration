@@ -1,5 +1,6 @@
 package com.changzh.courseregistration.service;
 
+import com.changzh.courseregistration.entity.Course;
 import com.changzh.courseregistration.entity.Student;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface StudentService {
     public void delete(int student_id);
 
     public void addCourse(int studentID, String courseID);
+
+    public List<Course> enrolledCourse(int studentID);
 }
