@@ -30,6 +30,9 @@ public class Student {
     @Column(name = "major")
     private String major;
 
+    @Column(name = "password")
+    private String password;
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JsonIgnore
     @JoinTable(name = "student_course", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "course_id"))
@@ -37,12 +40,13 @@ public class Student {
 
     public Student() {}
 
-    public Student(String firstName, String lastName, String email, int yearLevel, String major) {
+    public Student(String firstName, String lastName, String email, int yearLevel, String major, String password) {
         this.first_name = firstName;
         this.last_name = lastName;
         this.email = email;
         this.year_level = yearLevel;
         this.major = major;
+        this.password = password;
     }
 
     public int getStudent_id() {
@@ -106,6 +110,14 @@ public class Student {
             courses = new ArrayList<>();
         }
         courses.add(course);
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
