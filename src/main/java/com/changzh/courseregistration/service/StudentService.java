@@ -13,4 +13,6 @@ public interface StudentService {
     public void save(Student student);
 
     public void delete(int student_id);
+
+    public void addCourse(int studentID, String courseID);
 }

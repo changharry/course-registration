@@ -54,4 +54,10 @@ public class StudentController {
         studentService.delete(student_id);
         return "Deleted!";
     }
+
+    @PutMapping("/students/{student_id}/{course_id}")
+    public String addCourse(@PathVariable int student_id, @PathVariable String course_id) {
+        studentService.addCourse(student_id, course_id);
+        return "Success!";
+    }
 }

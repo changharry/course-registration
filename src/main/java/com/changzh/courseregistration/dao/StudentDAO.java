@@ -1,5 +1,6 @@
 package com.changzh.courseregistration.dao;
 
+import com.changzh.courseregistration.entity.Course;
 import com.changzh.courseregistration.entity.Student;
 
 import java.util.List;
@@ -13,4 +14,6 @@ public interface StudentDAO {
     public void save(Student student);
 
     public void delete(int studentID);
+
+    public void addCourse(int studentID, String courseID);
 }

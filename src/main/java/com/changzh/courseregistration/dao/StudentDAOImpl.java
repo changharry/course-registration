@@ -1,5 +1,6 @@
 package com.changzh.courseregistration.dao;
 
+import com.changzh.courseregistration.entity.Course;
 import com.changzh.courseregistration.entity.Student;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -46,4 +47,13 @@ public class StudentDAOImpl implements StudentDAO{
         query.setParameter("studentID", studentID);
         query.executeUpdate();
     }
+
+    @Override
+    public void addCourse(int studentID, String courseID) {
+        Session session = entityManager.unwrap(Session.class);
+        Student student = session.get(Student.class, studentID);
+        Course course = session.get(Course.class, courseID);
+        student.addCourse(course);
+    }
+
 }

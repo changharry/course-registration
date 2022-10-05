@@ -41,4 +41,10 @@ public class StudentServiceImpl implements StudentService{
     public void delete(int student_id) {
         studentDAO.delete(student_id);
     }
+
+    @Override
+    @Transactional
+    public void addCourse(int studentID, String courseID) {
+        studentDAO.addCourse(studentID, courseID);
+    }
 }
