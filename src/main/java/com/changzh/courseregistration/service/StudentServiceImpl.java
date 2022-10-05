@@ -50,6 +50,7 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
+    @Transactional
     public List<Course> enrolledCourse(int studentID) {
         return studentDAO.enrolledCourse(studentID);
     }

@@ -94,6 +94,9 @@ public class Course {
         if (students == null) {
             students = new ArrayList<>();
         }
+        if (students.contains(student)) {
+            throw new RuntimeException("Course already enrolled!");
+        }
         students.add(student);
     }
 

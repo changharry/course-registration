@@ -1,7 +1,9 @@
 package com.changzh.courseregistration.controller;
 
 import com.changzh.courseregistration.entity.Course;
+import com.changzh.courseregistration.entity.Student;
 import com.changzh.courseregistration.service.CourseService;
+import com.changzh.courseregistration.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,6 +55,16 @@ public class CourseController {
         }
         courseService.delete(courseID);
         return "Deleted!";
+    }
+    @PostMapping("/courses/{course_id}/{student_id}")
+    public String addStudent(@PathVariable String course_id, @PathVariable int student_id) {
+        courseService.addStudent(course_id, student_id);
+        return "Success!";
+    }
+
+    @GetMapping("/courses/{course_id}/registered")
+    public List<Student> registeredStudent(@PathVariable String course_id) {
+        return courseService.registeredStudent(course_id);
     }
 
 
