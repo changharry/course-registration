@@ -18,12 +18,12 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    @RequestMapping("/courses")
+    @GetMapping("/courses")
     public List<Course> findAll() {
         return courseService.findAll();
     }
 
-    @RequestMapping("/courses/{courseID}")
+    @GetMapping("/courses/{courseID}")
     public Course find(@PathVariable String courseID) {
         Course course = courseService.find(courseID);
         if (course == null) {

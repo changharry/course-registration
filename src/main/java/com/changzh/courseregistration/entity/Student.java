@@ -45,28 +45,28 @@ public class Student {
         this.major = major;
     }
 
-    public int getId() {
+    public int getStudent_id() {
         return student_id;
     }
 
-    public void setId(int id) {
-        this.student_id = id;
+    public void setStudent_id(int student_id) {
+        this.student_id = student_id;
     }
 
-    public String getFirstName() {
+    public String getFirst_name() {
         return first_name;
     }
 
-    public void setFirstName(String firstName) {
-        this.first_name = firstName;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
     }
 
-    public String getLastName() {
+    public String getLast_name() {
         return last_name;
     }
 
-    public void setLastName(String lastName) {
-        this.last_name = lastName;
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
     public String getEmail() {
@@ -77,12 +77,12 @@ public class Student {
         this.email = email;
     }
 
-    public int getYearLevel() {
+    public int getYear_level() {
         return year_level;
     }
 
-    public void setYearLevel(int yearLevel) {
-        this.year_level = yearLevel;
+    public void setYear_level(int year_level) {
+        this.year_level = year_level;
     }
 
     public String getMajor() {
@@ -111,11 +111,11 @@ public class Student {
     @Override
     public String toString() {
         return "Student{" +
-                "id=" + student_id +
-                ", firstName='" + first_name + '\'' +
-                ", lastName='" + last_name + '\'' +
+                "student_id=" + student_id +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
                 ", email='" + email + '\'' +
-                ", yearLevel=" + year_level +
+                ", year_level=" + year_level +
                 ", major='" + major + '\'' +
                 '}';
     }
