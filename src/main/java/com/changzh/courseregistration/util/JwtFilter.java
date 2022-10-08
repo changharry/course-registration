@@ -44,6 +44,10 @@ public class JwtFilter implements Filter
             String password= userData.get("password").asString();
             request.setAttribute("student_id", student_id);
             request.setAttribute("password", password);
+//            String path = request.getRequestURI();
+//            if (path.equals("/api/courses/") && student_id != 1) {
+//                throw new RuntimeException("Not Authorized!");
+//            }
             chain.doFilter(req, res);
         }
     }

@@ -8,6 +8,7 @@ import com.changzh.courseregistration.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -25,12 +26,18 @@ public class StudentController {
     }
 
     @GetMapping("/students")
-    public List<Student> findAll() {
+    public List<Student> findAll(HttpServletRequest httpServletRequest) {
+        if ((int) httpServletRequest.getAttribute("student_id") != 1) {
+            throw new RuntimeException("Not Authorized!");
+        }
         return studentService.findAll();
     }
 
     @GetMapping("/students/{student_id}")
-    public Student find(@PathVariable int student_id) {
+    public Student find(@PathVariable int student_id, HttpServletRequest httpServletRequest) {
+        if ((int) httpServletRequest.getAttribute("student_id") != student_id && (int) httpServletRequest.getAttribute("student_id") != 1) {
+            throw new RuntimeException("Not Authorized!");
+        }
         Student student = studentService.find(student_id);
         if (student == null) {
             throw new RuntimeException(String.format("Student: %s not found!", student_id));
@@ -47,14 +54,20 @@ public class StudentController {
     }
 
     @PutMapping("/students")
-    public Student updateStudent(@RequestBody StudentDetailDTO studentDetailDTO) {
+    public Student updateStudent(@RequestBody StudentDetailDTO studentDetailDTO, HttpServletRequest httpServletRequest) {
+        if ((int) httpServletRequest.getAttribute("student_id") != studentDetailDTO.getStudent_id() && (int) httpServletRequest.getAttribute("student_id") != 1) {
+            throw new RuntimeException("Not Authorized!");
+        }
         Student student = studentDetailDTO.daoMapper();
         studentService.save(student);
         return student;
     }
 
     @DeleteMapping("/students/{student_id}")
-    public String deleteStudent(@PathVariable int student_id) {
+    public String deleteStudent(@PathVariable int student_id, HttpServletRequest httpServletRequest) {
+        if ((int) httpServletRequest.getAttribute("student_id") != 1) {
+            throw new RuntimeException("Not Authorized!");
+        }
         Student student = studentService.find(student_id);
         if (student == null) {
             throw new RuntimeException(String.format("Student: %s not found!", student_id));
@@ -64,7 +77,10 @@ public class StudentController {
     }
 
     @PostMapping("/students/{student_id}/{course_id}")
-    public String addCourse(@PathVariable int student_id, @PathVariable String course_id) {
+    public String addCourse(@PathVariable int student_id, @PathVariable String course_id, HttpServletRequest httpServletRequest) {
+        if ((int) httpServletRequest.getAttribute("student_id") != student_id && (int) httpServletRequest.getAttribute("student_id") != 1) {
+            throw new RuntimeException("Not Authorized!");
+        }
         Student student = studentService.find(student_id);
         if (student == null) {
             throw new RuntimeException(String.format("Student: %s not found!", student_id));
@@ -76,8 +92,11 @@ public class StudentController {
         studentService.addCourse(student_id, course_id);
         return "Success!";
     }
-    @GetMapping("/students/{student_id}/enrolled")
-    public List<Course> enrolledCourse(@PathVariable int student_id) {
+    @GetMapping("/students/{student_id}/enrolled") // For student
+    public List<Course> enrolledCourse(@PathVariable int student_id, HttpServletRequest httpServletRequest) {
+        if ((int) httpServletRequest.getAttribute("student_id") != student_id && (int) httpServletRequest.getAttribute("student_id") != 1) {
+            throw new RuntimeException("Not Authorized!");
+        }
         Student student = studentService.find(student_id);
         if (student == null) {
             throw new RuntimeException(String.format("Student: %s not found!", student_id));

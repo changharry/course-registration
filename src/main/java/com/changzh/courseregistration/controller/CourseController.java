@@ -7,6 +7,7 @@ import com.changzh.courseregistration.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -35,20 +36,29 @@ public class CourseController {
     }
 
     @PostMapping("/courses")
-    public Course addCourse(@RequestBody Course course) {
+    public Course addCourse(@RequestBody Course course, HttpServletRequest httpServletRequest) {
+        if ((int) httpServletRequest.getAttribute("student_id") != 1) {
+            throw new RuntimeException("Not Authorized!");
+        }
         courseService.save(course);
         return course;
 
     }
 
     @PutMapping("/courses")
-    public Course updateCourse(@RequestBody Course course) {
+    public Course updateCourse(@RequestBody Course course, HttpServletRequest httpServletRequest) {
+        if ((int) httpServletRequest.getAttribute("student_id") != 1) {
+            throw new RuntimeException("Not Authorized!");
+        }
         courseService.save(course);
         return course;
     }
 
     @DeleteMapping("/courses/{courseID}")
-    public String deleteCourse(@PathVariable String courseID) {
+    public String deleteCourse(@PathVariable String courseID, HttpServletRequest httpServletRequest) {
+        if ((int) httpServletRequest.getAttribute("student_id") != 1) {
+            throw new RuntimeException("Not Authorized!");
+        }
         Course course = courseService.find(courseID);
         if (course == null) {
             throw new RuntimeException(String.format("Course: %s not found!", courseID));
@@ -57,13 +67,19 @@ public class CourseController {
         return "Deleted!";
     }
     @PostMapping("/courses/{course_id}/{student_id}")
-    public String addStudent(@PathVariable String course_id, @PathVariable int student_id) {
+    public String addStudent(@PathVariable String course_id, @PathVariable int student_id, HttpServletRequest httpServletRequest) {
+        if ((int) httpServletRequest.getAttribute("student_id") != 1) {
+            throw new RuntimeException("Not Authorized!");
+        }
         courseService.addStudent(course_id, student_id);
         return "Success!";
     }
 
     @GetMapping("/courses/{course_id}/registered")
-    public List<Student> registeredStudent(@PathVariable String course_id) {
+    public List<Student> registeredStudent(@PathVariable String course_id, HttpServletRequest httpServletRequest) {
+        if ((int) httpServletRequest.getAttribute("student_id") != 1) {
+            throw new RuntimeException("Not Authorized!");
+        }
         return courseService.registeredStudent(course_id);
     }
 
