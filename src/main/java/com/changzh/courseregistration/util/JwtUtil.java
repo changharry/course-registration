@@ -17,7 +17,7 @@ public class JwtUtil {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
     private static final String SECRET = "classified";
 
-    private static final long EXPIRATION = 1800L;
+    private static final long EXPIRATION = 86400L;
 
     public static String createToken(Student student) {
         Date expireDate = new Date(System.currentTimeMillis() + EXPIRATION * 1000);
