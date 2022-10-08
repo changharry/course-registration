@@ -31,6 +31,7 @@ public class Student {
     private String major;
 
     @Column(name = "password")
+    @JsonIgnore
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
