@@ -1,5 +1,6 @@
 package com.changzh.courseregistration.controller;
 
+import com.changzh.courseregistration.dto.StudentLoginDTO;
 import com.changzh.courseregistration.entity.Student;
 import com.changzh.courseregistration.service.StudentService;
 import com.changzh.courseregistration.util.JwtUtil;
@@ -18,10 +19,10 @@ public class LoginController {
     }
 
     @RequestMapping("/login")
-    public String login(@RequestBody Student student) {
-        Student db_student = studentService.find(student.getStudent_id());
+    public String login(@RequestBody StudentLoginDTO studentLoginDTO) {
+        Student db_student = studentService.find(studentLoginDTO.getStudent_id());
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        if (bCryptPasswordEncoder.matches(student.getPassword(), db_student.getPassword())) {
+        if (bCryptPasswordEncoder.matches(studentLoginDTO.getPassword(), db_student.getPassword())) {
             return JwtUtil.createToken(db_student);
         } else {
             return "Login Failed";
