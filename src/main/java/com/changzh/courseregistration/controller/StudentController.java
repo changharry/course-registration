@@ -1,5 +1,6 @@
 package com.changzh.courseregistration.controller;
 
+import com.changzh.courseregistration.dto.StudentDetailDTO;
 import com.changzh.courseregistration.entity.Course;
 import com.changzh.courseregistration.entity.Student;
 import com.changzh.courseregistration.service.CourseService;
@@ -38,14 +39,16 @@ public class StudentController {
     }
 
     @PostMapping("/students")
-    public Student addStudent(@RequestBody Student student) {
-        student.setStudent_id(0);
+    public Student addStudent(@RequestBody StudentDetailDTO studentDetailDTO) {
+        studentDetailDTO.setStudent_id(0);
+        Student student = studentDetailDTO.daoMapper();
         studentService.save(student);
         return student;
     }
 
     @PutMapping("/students")
-    public Student updateStudent(@RequestBody Student student) {
+    public Student updateStudent(@RequestBody StudentDetailDTO studentDetailDTO) {
+        Student student = studentDetailDTO.daoMapper();
         studentService.save(student);
         return student;
     }
