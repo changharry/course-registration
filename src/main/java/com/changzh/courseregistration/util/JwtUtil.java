@@ -20,7 +20,6 @@ public class JwtUtil {
     private static final long EXPIRATION = 1800L;
 
     public static String createToken(Student student) {
-        //过期时间
         Date expireDate = new Date(System.currentTimeMillis() + EXPIRATION * 1000);
         Map<String, Object> map = new HashMap<>();
         map.put("alg", "HS256");

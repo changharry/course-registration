@@ -3,6 +3,7 @@ package com.changzh.courseregistration.controller;
 import com.changzh.courseregistration.entity.Student;
 import com.changzh.courseregistration.service.StudentService;
 import com.changzh.courseregistration.util.JwtUtil;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +20,8 @@ public class LoginController {
     @RequestMapping("/login")
     public String login(@RequestBody Student student) {
         Student db_student = studentService.find(student.getStudent_id());
-        if (db_student.getPassword().equals(student.getPassword())) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        if (bCryptPasswordEncoder.matches(student.getPassword(), db_student.getPassword())) {
             return JwtUtil.createToken(db_student);
         } else {
             return "Login Failed";
