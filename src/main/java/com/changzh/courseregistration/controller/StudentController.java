@@ -3,6 +3,7 @@ package com.changzh.courseregistration.controller;
 import com.changzh.courseregistration.dto.StudentDetailDTO;
 import com.changzh.courseregistration.entity.Course;
 import com.changzh.courseregistration.entity.Student;
+import com.changzh.courseregistration.exception.NoPrivilegeException;
 import com.changzh.courseregistration.service.CourseService;
 import com.changzh.courseregistration.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class StudentController {
     @GetMapping("/students")
     public List<Student> findAll(HttpServletRequest httpServletRequest) {
         if ((int) httpServletRequest.getAttribute("student_id") != 1) {
-            throw new RuntimeException("Not Authorized!");
+            throw new NoPrivilegeException("No Privilege!");
         }
         return studentService.findAll();
     }
@@ -36,7 +37,7 @@ public class StudentController {
     @GetMapping("/students/{student_id}")
     public Student find(@PathVariable int student_id, HttpServletRequest httpServletRequest) {
         if ((int) httpServletRequest.getAttribute("student_id") != student_id && (int) httpServletRequest.getAttribute("student_id") != 1) {
-            throw new RuntimeException("Not Authorized!");
+            throw new NoPrivilegeException("No Privilege!");
         }
         Student student = studentService.find(student_id);
         if (student == null) {
@@ -56,7 +57,7 @@ public class StudentController {
     @PutMapping("/students")
     public Student updateStudent(@RequestBody StudentDetailDTO studentDetailDTO, HttpServletRequest httpServletRequest) {
         if ((int) httpServletRequest.getAttribute("student_id") != studentDetailDTO.getStudent_id() && (int) httpServletRequest.getAttribute("student_id") != 1) {
-            throw new RuntimeException("Not Authorized!");
+            throw new NoPrivilegeException("No Privilege!");
         }
         Student student = studentDetailDTO.daoMapper();
         studentService.save(student);
@@ -66,7 +67,7 @@ public class StudentController {
     @DeleteMapping("/students/{student_id}")
     public String deleteStudent(@PathVariable int student_id, HttpServletRequest httpServletRequest) {
         if ((int) httpServletRequest.getAttribute("student_id") != 1) {
-            throw new RuntimeException("Not Authorized!");
+            throw new NoPrivilegeException("No Privilege!");
         }
         Student student = studentService.find(student_id);
         if (student == null) {
@@ -79,7 +80,7 @@ public class StudentController {
     @PostMapping("/students/{student_id}/{course_id}")
     public String addCourse(@PathVariable int student_id, @PathVariable String course_id, HttpServletRequest httpServletRequest) {
         if ((int) httpServletRequest.getAttribute("student_id") != student_id && (int) httpServletRequest.getAttribute("student_id") != 1) {
-            throw new RuntimeException("Not Authorized!");
+            throw new NoPrivilegeException("No Privilege!");
         }
         Student student = studentService.find(student_id);
         if (student == null) {
@@ -95,7 +96,7 @@ public class StudentController {
     @GetMapping("/students/{student_id}/enrolled") // For student
     public List<Course> enrolledCourse(@PathVariable int student_id, HttpServletRequest httpServletRequest) {
         if ((int) httpServletRequest.getAttribute("student_id") != student_id && (int) httpServletRequest.getAttribute("student_id") != 1) {
-            throw new RuntimeException("Not Authorized!");
+            throw new NoPrivilegeException("No Privilege!");
         }
         Student student = studentService.find(student_id);
         if (student == null) {

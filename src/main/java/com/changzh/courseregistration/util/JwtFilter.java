@@ -31,23 +31,19 @@ public class JwtFilter implements Filter
         else {
 
             if (token == null) {
-                response.getWriter().write("Token Not Found!");
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token Not Found!");
                 return;
             }
 
             Map<String, Claim> userData = JwtUtil.verifyToken(token);
             if (userData == null) {
-                response.getWriter().write("Illegal Token!");
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Illegal Token!");
                 return;
             }
             Integer student_id = userData.get("student_id").asInt();
             String password= userData.get("password").asString();
             request.setAttribute("student_id", student_id);
             request.setAttribute("password", password);
-//            String path = request.getRequestURI();
-//            if (path.equals("/api/courses/") && student_id != 1) {
-//                throw new RuntimeException("Not Authorized!");
-//            }
             chain.doFilter(req, res);
         }
     }
