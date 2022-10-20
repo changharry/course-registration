@@ -5,11 +5,10 @@ import com.changzh.courseregistration.entity.Student;
 import com.changzh.courseregistration.service.StudentService;
 import com.changzh.courseregistration.util.JwtUtil;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
 public class LoginController {
 
     private StudentService studentService;
