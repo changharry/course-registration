@@ -37,7 +37,7 @@ public class StudentController {
 
     @GetMapping("/students/{student_id}")
     public Student find(@PathVariable int student_id, HttpServletRequest httpServletRequest) {
-        if ((int) httpServletRequest.getAttribute("student_id") != student_id && (int) httpServletRequest.getAttribute("student_id") != 1) {
+        if ((int) httpServletRequest.getAttribute("student_id") != student_id || (int) httpServletRequest.getAttribute("student_id") != 1) {
             throw new NoPrivilegeException("No Privilege!");
         }
         Student student = studentService.find(student_id);
